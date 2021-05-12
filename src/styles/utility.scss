@@ -1,0 +1,25 @@
+$gap : 1rem;
+
+@for $i from 1 through 5 {
+    .p-#{$i} {
+        padding:  $gap * $i;
+    }
+    .px-#{$i} {
+        padding-left:  $gap * $i;
+        padding-right : $gap * $i;
+    }
+    .py-#{$i} {
+        padding-top:  $gap * $i;
+        padding-bottom : $gap * $i;
+    }
+    .pt-#{$i} {
+        padding-top:  $gap * $i;
+    }
+    .pb-#{$i} {
+        padding-bottom:  $gap * $i;
+    }
+    
+    .mb-#{$i} {
+        margin-bottom: $gap * $i;
+    }
+}

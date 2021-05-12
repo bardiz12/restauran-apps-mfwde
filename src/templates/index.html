@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Restaurant Apps Starter Project</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="./images/icons/food.svg" type="image/x-icon">
+    <script src="https://use.fontawesome.com/2802d46b48.js"></script>
+    <style>
+        #page-loader {
+            position: absolute;
+            width: 100%;
+            margin: auto;
+            display: flex;
+            height: 100vh;
+            background-color: #fff;
+        }
+
+        #page-loader div {
+            margin: auto;
+        }
+    </style>
+</head>
+
+<body>
+    <a href="#maincontent" class="skip-link">Menuju ke konten</a>
+    <div id="page-loader">
+        <div>Mohon Tunggu Sedang Memuat Halaman</div>
+    </div>
+    <nav class="navbar">
+        <div class="navbar-wrapper">
+            <div class="logo">
+                <a href="/">
+                    <img id="logo-icon" inline src="./images/icons/food.svg" alt="Logo Mangan.id">
+                    <span>EatSkuy</span></a>
+            </div>
+            <ul class="navbar-list" id="nav">
+                <li class="nav-item">
+                    <a href="/">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#">Favorite</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#">About Us</a>
+                </li>
+            </ul>
+            <div id="menu-toggle-container" aria-label="Tampilkan Menu Mobile" tabindex="0">
+                <a href="javascript:void(0)" id="menu-toggle"><span></span></a>
+            </div>
+        </div>
+    </nav>
+    <div class="mobile-nav" aria-hidden="true">
+        <div class="mobile-nav-content">
+            <span>Menu</span>
+            <hr class="mb-2">
+            <a href="/" class="mobile-nav-link">Home</a>
+            <a href="#" class="mobile-nav-link">Favorite</a>
+            <a href="#" class="mobile-nav-link">About Us</a>
+        </div>
+    </div>
+
+    <section class="hero" tabindex="0">
+        <div class="hero-overlay">
+            <div class="hero-content">
+                <div class="caption">
+                    <h1>Hari ini makan apa ya?</h1>
+                    <p>EatSkuy merupakan website katalog restauran yang pastinya akan cocok dengan selera lidah anda!
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <main id="maincontent" tabindex="0">
+        <div class="container">
+            <h1 class="p-1 pt-3" tabindex="0">Explore Restaurant</h1>
+
+            <div class="p-1 list-restaurant" id="list-restaurant">
+
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer" tabindex="0">
+        <div class="content">
+            <span id="copyright"></span>
+            <script>
+                document.querySelector("#copyright").innerHTML = `Copyright &copy; ${(new Date).getFullYear()} - <strong>EatSkuy</strong>`
+            </script>
+            <div>
+                <i class="fa fa-facebook"></i>
+                <i class="fa fa-twitter"></i>
+                <i class="fa fa-instagram"></i>
+            </div>
+        </div>
+    </footer>
+    <!-- <h1>Restaurant Apps Starter Project</h1>
+<p>Hallo coders! Anda berhasil menjalankan starter project.</p>
+<p>Jangan lupa untuk menggunakan salah satu gambar yang berada pada ./images/heros sebagai background hero elemen</p>
+
+<img src="./images/heros/hero-image_2.jpg" width="450" alt="">
+<img src="./images/heros/hero-image_3.jpg" width="450" alt="">
+<img src="./images/heros/hero-image_4.jpg" width="450" alt=""> -->
+</body>
+
+</html>
