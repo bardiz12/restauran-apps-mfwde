@@ -245,19 +245,35 @@ $transparentPrimaryDarkerColor : #206a5d71;
         display: block;
         width: auto;
         margin: 10px;
+        border-radius: 3% 3% 0 0;
         box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%);
-        & img {
-            object-fit: cover;
-
-            width: 100%;
-            border-radius: 3% 3% 0 0;
-            @include tablet {
-                height: 300px;
+        
+        & .head {
+            position: relative;
+            display: block;
+            & span.city{
+                background : $primaryColor;
+                padding: 8px 10px;
+                color: white;
+                position:absolute;
+                top: 10px;
+                right: 10px;
             }
-            @include desktop {
-                height: 300px;
+    
+            & img {
+                object-fit: cover;
+    
+                width: 100%;
+                border-radius: 3% 3% 0 0;
+                @include tablet {
+                    height: 300px;
+                }
+                @include desktop {
+                    height: 300px;
+                }
             }
         }
+
         & .body{
             padding: 15px;
             & .title {

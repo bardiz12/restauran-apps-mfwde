@@ -24,7 +24,10 @@ const renderListRestaurant = async (elementId) => {
     elm.innerHTML = restaurants.map(restauran => {
         return `
             <article class="item-restaurant" tabindex="0">
-                <img src="${restauran.pictureId}" alt="Gambar restoran ${restauran.name}">
+                <div class="head">
+                    <span class="city" aria-label="Kota ${restauran.city}">${restauran.city}</span>
+                    <img src="${restauran.pictureId}" alt="Gambar restoran ${restauran.name}">
+                </div>
                 <div class="body">
                     <span class="title">${restauran.name}</span>
                 
@@ -37,7 +40,7 @@ const renderListRestaurant = async (elementId) => {
                         </span>
                     </div>
 
-
+                    
                     <p>
                     ${sumarizeText(restauran.description)}
                     </p>
