@@ -36,4 +36,12 @@ window.addEventListener('DOMContentLoaded', () => {
 
     app.renderListRestaurant('#list-restaurant')
 
+    const select = document.querySelector("select#kota")
+
+    select.addEventListener("change", function() {
+        const selectedCity = document.querySelector("select#kota").selectedOptions[0].value || null
+        window.cityFilter = selectedCity;
+        app.renderListRestaurant('#list-restaurant')
+    })
+
 })

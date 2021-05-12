@@ -15,13 +15,31 @@ const sumarizeText = (text, limit = null) => {
 }
 
 const renderListRestaurant = async (elementId) => {
-    const { restaurants } = await getListRestaurant()
+    if("cityFilter" in window === false){
+        window.cityFilter = null
+    }
+    const data = "cacheResto" in window ? window.cacheResto : await getListRestaurant()
+    const { restaurants } = data
+
     if (restaurants === undefined) {
         return alert('gagal meload Data')
     }
 
     const elm = document.querySelector(elementId)
+    const cities = restaurants.map(item => item.city)
+                                .filter((item, index, self) => self.indexOf(item) === index)
+
+    const select = document.querySelector("select#kota")
+    select.innerHTML = '<option>Semua Kota</option>' + cities.map(item => {
+        return `
+            <option ${item === window.cityFilter ? 'selected' : ''}>${item}</option>
+        `
+    })
+    
     elm.innerHTML = restaurants.map(restauran => {
+        if(window.cityFilter !== null && window.cityFilter !== 'Semua Kota' && restauran.city !== window.cityFilter){
+            return ''
+        }
         return `
             <article class="item-restaurant" tabindex="0">
                 <div class="head">
@@ -39,8 +57,6 @@ const renderListRestaurant = async (elementId) => {
                         <span aria-label="Restoran ini memiliki rating sebanyak ${restauran.rating}">${restauran.rating.toFixed(1)}
                         </span>
                     </div>
-
-                    
                     <p>
                     ${sumarizeText(restauran.description)}
                     </p>

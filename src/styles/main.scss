@@ -228,6 +228,29 @@ $transparentPrimaryDarkerColor : #206a5d71;
     }
 }
 
+.filter-restaurant{
+    display: flex;
+    width: 100%;
+    justify-content: flex-end;
+    & > div {
+        margin-right: 13px;
+        width: 100%;
+    }
+    & label {
+        margin-right: 10px;
+    }
+
+    & select {
+        width: 200px;
+        height: 32px;
+        padding: 5px 5px 5px 5px;
+        text-transform: uppercase;
+        @include mobile{
+            width: 100%;
+        }
+    }    
+}
+
 .list-restaurant{
     display: grid;
     // width: 100%;
@@ -316,7 +339,7 @@ $transparentPrimaryDarkerColor : #206a5d71;
 
 .footer{
     border-top: 1px solid #ddd;
-    padding: 10px;
+    padding: 15px;
     & .content{
         max-width: 1040px;
         display: flex;
