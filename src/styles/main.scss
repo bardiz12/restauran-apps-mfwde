@@ -116,7 +116,9 @@ $transparentPrimaryDarkerColor : #206a5d71;
         z-index: 3;
         cursor: pointer;
         padding: 12px;
-        & div.active {
+        & a.active {
+            position: fixed;
+            right: 35px;
             & span {
                 background: #ffffff00;
                 &::after{
@@ -214,7 +216,8 @@ $transparentPrimaryDarkerColor : #206a5d71;
             @include tablet {
                 width: 50%;
             }
-            & h1 {
+            & span {
+                font-weight: 800;
                 font-size: 3rem;
             }
             & p {
@@ -325,7 +328,6 @@ $transparentPrimaryDarkerColor : #206a5d71;
         background: #fff;
         opacity: 0.95;
         position: fixed;
-        overscroll-behavior: contain;
         top: 0;
         right: -100%;
         width: 100%;
