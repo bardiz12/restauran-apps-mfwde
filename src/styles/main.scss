@@ -53,6 +53,15 @@ $transparentPrimaryDarkerColor : #206a5d71;
 .skip-link {
     position: absolute;
     top: -40px;
+    left: 0;
+    background-color: $primaryDarkerColor;
+    color: white;
+    padding: 8px;
+    z-index: 100;
+}
+
+.skip-link:focus {
+    top: 0;
 }
 
 .navbar{
@@ -77,15 +86,20 @@ $transparentPrimaryDarkerColor : #206a5d71;
         color:$primaryDarkerColor;
         display: flex;
         align-items:center;
-
-        & #logo-icon{
-            height:20px;
+        & a {
+            display: flex;
+            & #logo-icon{
+                height:44px;
+            }
+    
+            & span {
+                line-height: 44px;
+                padding-left: 0.2rem;
+                font-weight: 700;
+                font-size: 18pt;
+            }
         }
 
-        & span {
-            padding-left: 0.2rem;
-            font-weight: 700;
-        }
     }
 
     &-list {
@@ -108,15 +122,22 @@ $transparentPrimaryDarkerColor : #206a5d71;
         }
         & a{
             color:inherit;
+            font-size: 12pt;
+            line-height: 44px;
+            min-width: 44px;
+            min-height: 44px;
+            display: block;
         }
        }
     }
 
     & #menu-toggle-container {
+        background: transparent;
+        border: none;
         z-index: 3;
         cursor: pointer;
-        padding: 12px;
-        & a.active {
+        padding: 22px;
+        & > span.active {
             position: fixed;
             right: 35px;
             & span {
@@ -231,6 +252,7 @@ $transparentPrimaryDarkerColor : #206a5d71;
 .filter-restaurant{
     display: flex;
     width: 100%;
+    margin-left: 10px;
     justify-content: flex-end;
     & > div {
         margin-right: 13px;
@@ -242,7 +264,7 @@ $transparentPrimaryDarkerColor : #206a5d71;
 
     & select {
         width: 200px;
-        height: 32px;
+        height: 44px;
         padding: 5px 5px 5px 5px;
         text-transform: uppercase;
         @include mobile{
@@ -253,6 +275,7 @@ $transparentPrimaryDarkerColor : #206a5d71;
 
 .list-restaurant{
     display: grid;
+    transition: 0.25s ease-in-out all;
     // width: 100%;
     @include mobile {
         grid-template-columns: 1fr;
@@ -298,7 +321,7 @@ $transparentPrimaryDarkerColor : #206a5d71;
         }
 
         & .body{
-            padding: 15px;
+            padding: 32px;
             & .title {
                 display: block;
                 font-weight: 500;

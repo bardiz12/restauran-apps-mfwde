@@ -14,13 +14,13 @@ window.addEventListener('DOMContentLoaded', () => {
     const mobileNav = document.querySelector(".mobile-nav")
 
     const menuToggler = () => {
-        const a = menuToggle.querySelector("a")
+        const toggler = menuToggle.querySelector("span")
 
-        a.classList.contains('active') 
-            ? a.classList.remove('active') 
+        toggler.classList.contains('active') 
+            ? toggler.classList.remove('active') 
                 || nav.classList.remove('navbar-list-mobile')
                 || mobileNav.classList.remove('mobile-nav-active')
-            : a.classList.add('active') 
+            : toggler.classList.add('active') 
                 || nav.classList.add('navbar-list-mobile')
                 || mobileNav.classList.add('mobile-nav-active')
         

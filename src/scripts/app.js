@@ -6,19 +6,22 @@ const sumarizeText = (text, limit = null) => {
     if (text.length <= 0) return ''
 
     limit = limit ? limit : 150;
-    
-    if(text.length <= limit ) return text
+
+    if (text.length <= limit) return text
 
     return text.substring(0, limit)
-               .replace(/\s+$/, "")
-               + "..."
+        .replace(/\s+$/, "")
+        + "..."
 }
 
 const renderListRestaurant = async (elementId) => {
-    if("cityFilter" in window === false){
+    if ("cityFilter" in window === false) {
         window.cityFilter = null
     }
-    const data = "cacheResto" in window ? window.cacheResto : await getListRestaurant()
+    const data = "cacheResto" in window
+        ? window.cacheResto
+        : window.cacheResto = await getListRestaurant()
+
     const { restaurants } = data
 
     if (restaurants === undefined) {
@@ -27,7 +30,7 @@ const renderListRestaurant = async (elementId) => {
 
     const elm = document.querySelector(elementId)
     const cities = restaurants.map(item => item.city)
-                                .filter((item, index, self) => self.indexOf(item) === index)
+        .filter((item, index, self) => self.indexOf(item) === index)
 
     const select = document.querySelector("select#kota")
     select.innerHTML = '<option>Semua Kota</option>' + cities.map(item => {
@@ -35,9 +38,9 @@ const renderListRestaurant = async (elementId) => {
             <option ${item === window.cityFilter ? 'selected' : ''}>${item}</option>
         `
     })
-    
+
     elm.innerHTML = restaurants.map(restauran => {
-        if(window.cityFilter !== null && window.cityFilter !== 'Semua Kota' && restauran.city !== window.cityFilter){
+        if (window.cityFilter !== null && window.cityFilter !== 'Semua Kota' && restauran.city !== window.cityFilter) {
             return ''
         }
         return `
