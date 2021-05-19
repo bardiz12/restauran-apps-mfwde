@@ -69,7 +69,7 @@ $transparentPrimaryDarkerColor : #206a5d71;
     width: 100%;
     margin:auto;
     background:white;
-    padding: 15px 0px;
+    padding: 15px 0;
     border: 1px solid #eee;
 
     &-wrapper {
@@ -78,7 +78,7 @@ $transparentPrimaryDarkerColor : #206a5d71;
         display:flex;
         justify-content:space-between;
         align-items:center;
-        padding: 0px 20px;
+        padding: 0 20px;
     }
 
     & .logo {
@@ -145,10 +145,10 @@ $transparentPrimaryDarkerColor : #206a5d71;
                 &::after{
                     transform: rotate(-45deg);
                     background: #fff;
-                    margin-top: 0px;
+                    margin-top: 0;
                 }
                 &::before{
-                    margin-top: 0px;
+                    margin-top: 0;
                     background: #fff;
                     transform: rotate(45deg);
                 }
@@ -353,6 +353,11 @@ $transparentPrimaryDarkerColor : #206a5d71;
             }
 
             & p {
+                overflow: hidden;
+                text-overflow: ellipsis;
+                display: -webkit-box;
+                -webkit-line-clamp: 6; /* number of lines to show */
+                -webkit-box-orient: vertical;
                 line-height: 180%;
                 font-size: 11pt;
             }
@@ -376,10 +381,6 @@ $transparentPrimaryDarkerColor : #206a5d71;
         &-list{
             display: none;
         }
-        // &-list-mobile{
-        //     display: block;
-        //     position: absolute;
-        // }
         & #menu-toggle-container{
             display: block;
         }

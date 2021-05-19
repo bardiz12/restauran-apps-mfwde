@@ -1,32 +1,11 @@
-const getListRestaurant = async () => {
-    return await (await fetch('./data.json')).json()
-}
-
-const sumarizeText = (text, limit = null) => {
-    if (text.length <= 0) return ''
-
-    limit = limit ? limit : 150;
-
-    if (text.length <= limit) return text
-
-    return text.substring(0, limit)
-        .replace(/\s+$/, "")
-        + "..."
-}
+const dataRestaurants = require("../data/data.json")
 
 const renderListRestaurant = async (elementId) => {
     if ("cityFilter" in window === false) {
         window.cityFilter = null
     }
-    const data = "cacheResto" in window
-        ? window.cacheResto
-        : window.cacheResto = await getListRestaurant()
 
-    const { restaurants } = data
-
-    if (restaurants === undefined) {
-        return alert('gagal meload Data')
-    }
+    const { restaurants } = dataRestaurants
 
     const elm = document.querySelector(elementId)
     const cities = restaurants.map(item => item.city)
@@ -47,7 +26,7 @@ const renderListRestaurant = async (elementId) => {
             <article class="item-restaurant" tabindex="0">
                 <div class="head">
                     <span class="city" aria-label="Kota ${restauran.city}">${restauran.city}</span>
-                    <img src="${restauran.pictureId}" alt="Gambar restoran ${restauran.name}">
+                    <img src="${restauran.pictureId}" alt="restoran ${restauran.name}">
                 </div>
                 <div class="body">
                     <span class="title">${restauran.name}</span>
@@ -61,7 +40,7 @@ const renderListRestaurant = async (elementId) => {
                         </span>
                     </div>
                     <p>
-                    ${sumarizeText(restauran.description)}
+                    ${restauran.description}
                     </p>
                 </div>
             </article>
