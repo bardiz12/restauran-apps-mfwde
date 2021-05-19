@@ -1,26 +1,24 @@
-const dataRestaurants = require("../data/data.json")
+const dataRestaurants = require('../data/data.json');
 
 const renderListRestaurant = async (elementId) => {
-    if ("cityFilter" in window === false) {
-        window.cityFilter = null
+    if ('cityFilter' in window === false) {
+        window.cityFilter = null;
     }
 
-    const { restaurants } = dataRestaurants
+    const { restaurants } = dataRestaurants;
 
-    const elm = document.querySelector(elementId)
-    const cities = restaurants.map(item => item.city)
-        .filter((item, index, self) => self.indexOf(item) === index)
+    const elm = document.querySelector(elementId);
+    const cities = restaurants.map((item) => item.city)
+        .filter((item, index, self) => self.indexOf(item) === index);
 
-    const select = document.querySelector("select#kota")
-    select.innerHTML = '<option>Semua Kota</option>' + cities.map(item => {
-        return `
+    const select = document.querySelector('select#kota');
+    select.innerHTML = `<option>Semua Kota</option>${cities.map((item) => `
             <option ${item === window.cityFilter ? 'selected' : ''}>${item}</option>
-        `
-    })
+        `)}`;
 
-    elm.innerHTML = restaurants.map(restauran => {
+    elm.innerHTML = restaurants.map((restauran) => {
         if (window.cityFilter !== null && window.cityFilter !== 'Semua Kota' && restauran.city !== window.cityFilter) {
-            return ''
+            return '';
         }
         return `
             <article class="item-restaurant" tabindex="0">
@@ -34,7 +32,7 @@ const renderListRestaurant = async (elementId) => {
                     
                     <div class="ratings">
                         <div class="restaurant-stars">
-                            ${`<i class="fa fa-star"></i>`.repeat(parseInt(restauran.rating))}${restauran.rating / parseInt(restauran.rating) > 1 ? '<i class="fa fa-star-half"></i>' : ''}
+                            ${'<i class="fa fa-star"></i>'.repeat(parseInt(restauran.rating, 10))}${restauran.rating / parseInt(restauran.rating, 10) > 1 ? '<i class="fa fa-star-half"></i>' : ''}
                         </div>
                         <span aria-label="Restoran ini memiliki rating sebanyak ${restauran.rating}">${restauran.rating.toFixed(1)}
                         </span>
@@ -44,10 +42,10 @@ const renderListRestaurant = async (elementId) => {
                     </p>
                 </div>
             </article>
-        `
-    }).join("\n")
-}
+        `;
+    }).join('\n');
+};
 
 module.exports = {
-    renderListRestaurant
-}
+    renderListRestaurant,
+};
