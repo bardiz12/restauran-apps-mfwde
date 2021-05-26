@@ -1,25 +1,199 @@
-$gap : 1rem;
+$gap : 0.5rem;
+$size : 8px;
+$devices : "",
+"tablet:",
+"desktop";
 
-@for $i from 1 through 5 {
-    .p-#{$i} {
-        padding:  $gap * $i;
+
+@mixin gapAndSize ($gap, $size, $prefix) {
+    @for $i from 1 through 8 {
+        .#{$prefix}p-#{$i} {
+            padding: $gap * $i !important;
+        }
+
+        .#{$prefix}px-#{$i} {
+            padding-left: $gap * $i !important;
+            padding-right: $gap * $i !important;
+        }
+
+        .#{$prefix}py-#{$i} {
+            padding-top: $gap * $i !important;
+            padding-bottom: $gap * $i !important;
+        }
+
+        .#{$prefix}pt-#{$i} {
+            padding-top: $gap * $i !important;
+        }
+        .#{$prefix}pl-#{$i} {
+            padding-left: $gap * $i !important;
+        }
+        .#{$prefix}pr-#{$i} {
+            padding-right: $gap * $i !important;
+        }
+
+        .#{$prefix}pb-#{$i} {
+            padding-bottom: $gap * $i !important;
+        }
+
+        .#{$prefix}mb-#{$i} {
+            margin-bottom: $gap * $i !important;
+        }
+        .#{$prefix}m-#{$i} {
+            margin: $gap * $i !important;
+        }
+
+        .#{$prefix}mt-#{$i} {
+            margin-top: $gap * $i !important;
+        }
+        .#{$prefix}mr-#{$i} {
+            margin-right: $gap * $i !important;
+        }
+
+        .#{$prefix}size-#{$i} {
+            height: auto !important;
+            width: $size * $i !important;
+        }
+
+        .#{$prefix}size-width-#{$i} {
+            width: $size * $i !important;
+        }
+
+        .#{$prefix}size-height-#{$i} {
+            height: $size * $i !important;
+        }
+
+        
     }
-    .px-#{$i} {
-        padding-left:  $gap * $i;
-        padding-right : $gap * $i;
+
+    @if $prefix=="" {
+        .#{$prefix}p-none {
+            padding: none;
+        }
+
+        .#{$prefix}px-none {
+            padding-left: none;
+            padding-right: none;
+        }
+
+        .#{$prefix}py-none {
+            padding-top: none;
+            padding-bottom: none;
+        }
+
+        .#{$prefix}pt-none {
+            padding-top: none;
+        }
+
+
+        .#{$prefix}pb-none {
+            padding-bottom: none;
+        }
+
+        .#{$prefix}mb-none {
+            margin-bottom: none;
+        }
+
+        .#{$prefix}size-none {
+            height: auto;
+            width: none;
+        }
+
+        .#{$prefix}size-width-none {
+            width: none;
+        }
+
+        .#{$prefix}size-height-none {
+            height: none;
+        }
+
     }
-    .py-#{$i} {
-        padding-top:  $gap * $i;
-        padding-bottom : $gap * $i;
+}
+
+@include gapAndSize($gap, $size, "");
+
+@include tablet {
+    @include gapAndSize($gap, $size, "tablet\\:");
+}
+
+@include desktop {
+    @include gapAndSize($gap, $size, "desktop\\:");
+}
+
+.flex {
+    display: flex;
+}
+
+.justify-start {
+    justify-content: flex-start;
+}
+
+.justify-between {
+    justify-content: space-between;
+}
+
+.justify-center {
+    justify-content: center;
+}
+
+
+.justify-end {
+    justify-content: flex-end;
+}
+
+.rounded {
+    border-radius: $size;
+}
+
+.text-white{
+    color: #fff;
+}
+
+.text-black{
+    color: #000;
+}
+
+.text-center{
+    text-align: center;
+}
+
+.bg-white{
+    background: #fff;
+}
+
+.inline-block{
+    display: inline-block;
+}
+.block{
+    display: block;
+}
+
+input[type="text"], textarea {
+    width: 100%;
+    padding: 8px 8px;
+    border: 1px solid #aaa;
+    border-radius: 3px;
+    font-family: inherit;
+    font-size: inherit;
+}
+
+form {
+    & label {
+        font-weight: 700;
     }
-    .pt-#{$i} {
-        padding-top:  $gap * $i;
+}
+
+.input-container {
+    margin-bottom: 16px;
+    & label {
+        display: block;
+        margin-bottom: 8px;
     }
-    .pb-#{$i} {
-        padding-bottom:  $gap * $i;
-    }
-    
-    .mb-#{$i} {
-        margin-bottom: $gap * $i;
-    }
+}
+
+.bg-primary {
+    background: $primaryDarkerColor;
+}
+
+.outline-white {
+    border:1px solid white;
 }

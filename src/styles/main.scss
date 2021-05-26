@@ -46,12 +46,14 @@ a {
 }
 
 $primaryDarkerColor : #206a5d;
+$primaryDarkerColorAlternative : #1b5d51;
 $primaryColor : #81b214;
 $primaryColorDark : #cf8a36;
 $defaultColor : #ffcc29;
 $secondaryColor : #f58634;
 
 $transparentPrimaryDarkerColor : #206a5d71;
+$transparentDarkerPrimaryDarkerColor : #206a5dd3;
 
 .text-danger {
     color: $secondaryColor;
@@ -150,7 +152,6 @@ $transparentPrimaryDarkerColor : #206a5d71;
         padding: 22px;
 
         &>span.active {
-            position: fixed;
             right: 35px;
 
             & span {
@@ -225,16 +226,20 @@ $transparentPrimaryDarkerColor : #206a5d71;
     }
 }
 
-#maincontent>div {
-    animation-duration: 0.5s;
-    animation-name: fadeIn;
+#maincontent {
+    width: 100%;
+
+    &>div {
+        animation-duration: 0.5s;
+        animation-name: fadeIn;
+    }
 }
 
 @keyframes hero-background {
 
     33%,
     66% {
-        background-image: url('../public/images/heros/hero-image_2.jpg');
+        background-image: url('../public/images/heros/hero-image_1.jpg');
     }
 
     66%,
@@ -243,12 +248,8 @@ $transparentPrimaryDarkerColor : #206a5d71;
     }
 }
 
-.home-jumbotron {
-    animation: hero-background 60s infinite step-start;
-}
 
 .hero {
-    background-image: url('../public/images/heros/hero-image_1.jpg');
     margin: auto;
     transition: 0.25s ease-out all;
     min-height: 500px;
@@ -257,6 +258,11 @@ $transparentPrimaryDarkerColor : #206a5d71;
     background-position: center;
     background-repeat: no-repeat;
 
+    &.with-default-bg {
+        background-image: url('../public/images/heros/hero-image_1.jpg');
+        animation: hero-background 60s infinite step-start;
+    }
+
     &-overlay {
         display: flex;
         align-items: center;
@@ -264,12 +270,23 @@ $transparentPrimaryDarkerColor : #206a5d71;
         min-height: inherit;
         background-color: $transparentPrimaryDarkerColor;
         height: 100%;
+
+        &-darker {
+            background-color: $transparentDarkerPrimaryDarkerColor;
+        }
     }
+
+
 
     &-content {
         max-width: 1040px;
         margin: auto;
-        padding: 64px;
+        padding: 32px;
+
+        @include tablet {
+            padding: 64px;
+        }
+
         color: #fff;
 
         @include desktop {
@@ -289,6 +306,61 @@ $transparentPrimaryDarkerColor : #206a5d71;
             & p {
                 margin-top: 25px;
             }
+        }
+
+        & .resto-caption {
+            display: block;
+            flex-direction: column;
+
+            @include tablet {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+            }
+
+            justify-items: flex-start;
+
+            & .image-container {
+                @include tablet {
+                    padding: 0px 22px;
+                    width: 50%;
+                }
+
+                & img {
+                    width: 80%;
+                    margin-bottom: 25px;
+
+                    @include tablet {
+                        width: 100%;
+                        margin-bottom: 0;
+                    }
+
+                    border-radius: 10px;
+                    -webkit-box-shadow: 3px 3px 5px 6px rgba(221, 221, 221, 0.608);
+                    /* Safari 3-4, iOS 4.0.2 - 4.2, Android 2.3+ */
+                    -moz-box-shadow: 3px 3px 5px 6px rgba(221, 221, 221, 0.608);
+                    /* Firefox 3.5 - 3.6 */
+                    box-shadow: 3px 3px 5px 6px rgba(221, 221, 221, 0.608);
+                }
+            }
+
+            & .text-container {
+                @include tablet {
+                    width: 50%;
+                }
+
+                h1 {
+                    font-weight: 700;
+                    font-size: 2rem;
+                }
+
+                @include desktop {
+                    & .rating-item {
+                        font-size: 2rem;
+                    }
+                }
+            }
+
         }
 
     }
@@ -325,7 +397,6 @@ $transparentPrimaryDarkerColor : #206a5d71;
     display: grid;
     transition: 0.25s ease-in-out all;
 
-    // width: 100%;
     @include mobile {
         grid-template-columns: 1fr;
     }
@@ -360,7 +431,6 @@ $transparentPrimaryDarkerColor : #206a5d71;
 
             & img {
                 object-fit: cover;
-
                 width: 100%;
                 border-radius: 3% 3% 0 0;
 
@@ -386,7 +456,6 @@ $transparentPrimaryDarkerColor : #206a5d71;
                 text-overflow: ellipsis;
                 display: -webkit-box;
                 -webkit-line-clamp: 1;
-                /* number of lines to show */
                 -webkit-box-orient: vertical;
                 font-weight: 500;
                 font-size: 1.5rem;
@@ -401,33 +470,7 @@ $transparentPrimaryDarkerColor : #206a5d71;
             }
 
 
-            & .ratings {
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
 
-                & .restaurant-stars {
-                    color: #FFC107;
-                    margin-bottom: 5px;
-                    font-size: 12pt;
-
-                    & i {
-                        color: inherit;
-                    }
-
-                    ;
-
-                    & span {
-                        color: black;
-                        font-size: 8pt;
-                    }
-                }
-
-                & span {
-                    font-weight: 400;
-                    font-size: 16pt;
-                }
-            }
 
             & p {
                 overflow: hidden;
@@ -458,37 +501,37 @@ $transparentPrimaryDarkerColor : #206a5d71;
                 }
             }
 
-            & button {
-                border: none;
-                background: none;
-                cursor: pointer;
 
-                &:active {
-                    padding-right: 5px;
-                    padding-top: 10px;
-                }
 
-                & span.item.saved {
-
-                    color: $secondaryColor
-                }
-            }
-
-            & span.item {
-                pointer-events: none;
-                text-transform: uppercase;
-                transition: all 0.1s ease-in;
-                font-size: 1rem;
-                display: block;
-                width: 100%;
-                padding: 22px;
-
-                &:hover {
-                    padding-top: 25px;
-                    padding-bottom: 19px;
-                }
-            }
         }
+    }
+}
+
+.ratings {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    & .rating-item {
+        color: #FFC107;
+        margin-bottom: 5px;
+        font-size: 12pt;
+
+        & i {
+            color: inherit;
+        }
+
+        ;
+
+        & span {
+            color: black;
+            font-size: 8pt;
+        }
+    }
+
+    & span {
+        font-weight: 400;
+        font-size: 16pt;
     }
 }
 
@@ -589,5 +632,43 @@ footer.footer {
 
     .mobile-nav {
         display: none;
+    }
+}
+
+@import "./utility.scss";
+@import "./page-loader.scss";
+@import "./detail.scss";
+@import "./component.scss";
+
+button.restaurant-save-button {
+    border: none;
+    background: none;
+    cursor: pointer;
+
+    &:active {
+        & span.item {
+            font-size: 1.2rem;
+            padding-top: 2px;
+        }
+    }
+}
+
+.clickable {
+
+    pointer-events: none;
+    text-transform: uppercase;
+    transition: all 0.1s ease-in;
+    font-size: 1rem;
+    display: block;
+    width: 100%;
+    padding: 22px;
+
+    &:hover {
+        padding-top: 25px;
+        padding-bottom: 19px;
+    }
+
+    &-active{
+        color: $secondaryColor
     }
 }

@@ -1,15 +1,19 @@
+import CONFIG from '../globals/config';
+import RestaurantFavouriteModel from '../repository/database/RestaurantFavouriteModel';
 import RestaurantData from '../repository/RestaurantData';
 
 const Home = {
     container: null,
-    selectListener: null,
     clickListener: null,
+    restaurans: null,
     init(container) {
         this.container = container;
     },
     async render() {
+        const { restaurants } = await RestaurantData.getListRestauran();
+        this.restaurans = restaurants;
         return `
-            <section class="hero home-jumbotron" tabindex="0">
+            <section class="hero home-jumbotron with-default-bg" tabindex="0">
                 <div class="hero-overlay">
                     <div class="hero-content">
                         <div class="caption">
@@ -20,19 +24,12 @@ const Home = {
                     </div>
                 </div>
             </section>
-            <div class="container">
+            <div class="container" id="content" tabindex="0">
                 <h1 class="p-1 pt-3" tabindex="0">Explore Restaurant</h1>
 
                 <div class="p-1">
-                    <div class="filter-restaurant">
-                        <div>
-                            <label for="kota">Pilih Kota</label>
-                            <select name="kota" id="kota">
-                                
-                            </select>
-                        </div>
-                    </div>
                     <div class="list-restaurant" id="list-restaurant"></div>
+                    <div id="list-restaurant-zero"></div>
 
                 </div>
             </div>
@@ -40,102 +37,67 @@ const Home = {
     },
 
     async afterRender() {
-        const select = this.container.querySelector('select#kota');
         this.renderListRestaurant();
-        if (this.selectListener === null) {
-            this.selectListener = select.addEventListener('change', () => {
-                const selectedCity = document.querySelector('select#kota').selectedOptions[0].value || null;
-                window.cityFilter = selectedCity;
-                this.renderListRestaurant();
-            });
-        }
-        if (this.clickListener === null) {
-            this.clickListener = document.addEventListener('click', (e) => {
-                if (e.target.classList.contains('restaurant-save-button') >= 0) {
-                    this.handleSaveButton(e.target);
-                }
-            });
-        }
-    },
-
-    async handleSaveButton(button) {
-        const span = button.querySelector('span.item');
-        const isSaved = span.classList.contains('saved');
-        const icon = span.querySelector('i');
-        const text = span.querySelector('span');
-
-        const toggledSave = !isSaved;
-        span.classList.toggle('saved');
-        if (toggledSave) {
-            icon.classList.remove('fa-heart-o');
-            icon.classList.add('fa-heart');
-
-            text.innerHTML = 'saved';
-        } else {
-            icon.classList.add('fa-heart-o');
-            icon.classList.remove('fa-heart');
-            text.innerHTML = 'save';
-        }
     },
 
     async renderListRestaurant() {
         const cityFilterKeyword = window.cityFilter || null;
 
-        const { restaurants } = await RestaurantData.getListRestauran();
         const elm = this.container.querySelector('#list-restaurant');
-        const cities = restaurants
-            .map((item) => item.city)
-            .filter((item, index, self) => self.indexOf(item) === index);
 
-        const select = this.container.querySelector('select#kota');
+        const restaurants = this.restaurans;
 
-        select.innerHTML = `<option>Semua Kota</option>${cities.map((item) => `
-            <option ${item === cityFilterKeyword ? 'selected' : ''}>${item}</option>
-        `)}`;
+        if (restaurants.length === 0) {
+            this.container.querySelector('#list-restaurant-zero').innerHTML = this.notAvailableMessage();
+            return;
+        }
 
+        // eslint-disable-next-line max-len
+        const saved = await RestaurantFavouriteModel.checkIsSaved(restaurants.map((item) => item.id));
         elm.innerHTML = restaurants.map((restauran) => {
             if (cityFilterKeyword !== null && cityFilterKeyword !== 'Semua Kota' && restauran.city !== cityFilterKeyword) {
                 return '';
             }
             return `
-            <article class="item-restaurant" tabindex="0">
+            <article class="item-restaurant">
                 <div class="head">
-                    <span class="city" aria-label="Kota ${restauran.city}">${restauran.city}</span>
-                    <img src="${restauran.pictureId}" alt="restoran ${restauran.name}">
+                    <span class="city" aria-label="Kota ${restauran.city}" tabindex="0">${restauran.city}</span>
+                    <img  tabindex="0" src="${CONFIG.BASE_IMAGE_URL.medium}${restauran.pictureId}" alt="restoran ${restauran.name}">
                 </div>
                 <div class="body">
-                    <span class="title">${restauran.name}</span>
+                    <span class="title"  tabindex="0">${restauran.name}</span>
 
                     <div class="ratings">
-                        <div class="restaurant-stars">
+                        <div class="rating-item">
                             ${'<i class="fa fa-star"></i>'.repeat(parseInt(restauran.rating, 10))}${restauran.rating / parseInt(restauran.rating, 10) > 1 ? '<i class="fa fa-star-half"></i>' : ''}
                         </div>
-                        <span aria-label="Restoran ini memiliki rating sebanyak ${restauran.rating}">${restauran.rating.toFixed(1)}
+                        <span  tabindex="0" aria-label="Restoran ini memiliki rating sebanyak ${restauran.rating}">${restauran.rating.toFixed(1)}
                         </span>
                     </div>
-                    <p>
+                    <p  tabindex="0">
                     ${restauran.description}
                     </p>
 
                 </div>
                 <div class="footer">
                     <div>
-                        <button class="restaurant-save-button">
-                            <span class="item ${restauran.isSaved ? 'saved' : ''}">
-                                <i class="fa ${restauran.isSaved ? 'fa-heart' : 'fa-heart-o '}"></i>
-                                <span>${restauran.isSaved ? 'Saved' : 'Save'}</span>
-                            </span>
-                        </button>
+                        <fav-resto-button resto='${JSON.stringify(restauran)}' is-saved="${saved[restauran.id]}" resto-id="${restauran.id}" ></fav-resto-button>
                     </div>
                     <div>
                     <a href="${`/#/detail/${restauran.id}`}" class="cta">
-                        <span class="item">Detail <i class="fa fa-arrow-right"></i></span>
+                        <span class="clickable">Detail <i class="fa fa-arrow-right"></i></span>
                     </a>
                     </div>
                 </div>
             </article>
         `;
         }).join('\n');
+    },
+
+    notAvailableMessage() {
+        return `
+            <p>Data belum tersediaAnda belum menyukai restoran manapun</p>
+        `;
     },
 };
 

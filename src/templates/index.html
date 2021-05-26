@@ -7,7 +7,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="./images/icons/food.svg" type="image/x-icon">
+    <link rel="apple-touch-icon" href="./images/icons/app/icon-192x192.png">
     <script src="https://use.fontawesome.com/2802d46b48.js"></script>
+    <meta name="theme-color" content="#206a5d"/>
+    <link rel="manifest" href="manifest.json">
     <style>
         #page-loader {
             position: absolute;
@@ -15,20 +18,59 @@
             margin: auto;
             display: flex;
             height: 100vh;
-            background-color: #fff;
+            background-color: rgba(255, 255, 255, 0.663);
+            z-index: 9;
+            -webkit-transition: all .5s ease-out;
+            -moz-transition: all .5s ease-out;
+            transition: all .5s ease-out;
         }
 
-        #page-loader div {
+        #page-loader > div {
             margin: auto;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        .page-loader-hidden {
+            overflow:hidden;
+            height:0;
+            padding: 0 18px;
+            width:100px;
+            animation-name: hiding;
+            animation-duration: 0.5s;
+            display: none;
+            opacity: 0;
+            z-index: -1 !important;
+        }
+        @keyframes hiding {
+            from {
+                opacity: 1;
+            }
+
+            to {
+                opacity: 0;
+                display: none;
+            }
         }
     </style>
 </head>
 
 <body>
+    <div id="page-loader" class="">
+        <div>
+            <div class="lds-ring">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+            <span>Mohon Tunggu Sedang Memuat Halaman</span>
+        </div>
+    </div>
     <a href="#maincontent" class="skip-link">Menuju ke konten</a>
-    <!-- <div id="page-loader">
-        <div>Mohon Tunggu Sedang Memuat Halaman</div>
-    </div> -->
+
     <nav class="navbar">
         <div class="navbar-wrapper">
             <div class="logo">
@@ -41,7 +83,7 @@
                     <a href="#/">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a href="#">Favorite</a>
+                    <a href="#/favorite">Favorite</a>
                 </li>
                 <li class="nav-item">
                     <a href="https://bardiz.netlify.app">About Us</a>
@@ -64,10 +106,10 @@
         </div>
     </div>
 
-    
 
-    <main id="maincontent" tabindex="0" class="">
-        
+
+    <main id="maincontent" class="">
+
     </main>
 
     <footer class="footer" tabindex="0">

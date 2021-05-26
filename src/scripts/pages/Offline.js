@@ -1,4 +1,4 @@
-const NotFound = {
+const Offline = {
     container: null,
     init(container) {
         this.container = container;
@@ -9,9 +9,9 @@ const NotFound = {
                 <div class="hero-overlay">
                     <div class="hero-content">
                         <div class="caption">
-                            <span>Halaman Tidak Tersedia</span>
+                            <span>Kamu tidak terhubung ke internet.</span>
                             <p>
-                                Sepertinya kamu tersesat
+                                Untuk mengakses halaman ini kamu membutuhkan koneksi internet 
                             </p>
                         </div>
                     </div>
@@ -24,4 +24,4 @@ const NotFound = {
     },
 };
 
-export default NotFound;
+export default Offline;

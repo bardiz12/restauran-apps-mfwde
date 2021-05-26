@@ -38,10 +38,12 @@
     "webpack-cli": "^3.3.12",
     "webpack-dev-server": "^3.11.0",
     "webpack-merge": "^5.0.9",
-    "whatwg-fetch": "^3.2.0"
+    "whatwg-fetch": "^3.2.0",
+    "workbox-webpack-plugin": "^6.1.5"
   },
   "dependencies": {
     "html-webpack-inline-svg-plugin": "^2.3.0",
+    "idb": "^6.1.1",
     "regenerator-runtime": "^0.13.5"
   }
 }

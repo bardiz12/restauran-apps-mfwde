@@ -1,0 +1,34 @@
+.card {
+    background: #fff;
+    border-radius: 2px;
+    border:1px solid #ddd;
+    padding: 5px 10px;
+}
+
+.btn {
+    border: none;
+    padding: 16px;
+    font-size: 12pt;
+    transition: all 0.25s ease-in-out;
+    &:hover{
+
+    }
+
+    
+}
+
+.btn-primary{
+    background: $primaryDarkerColor;
+    color: white;
+    &:disabled{
+        background: $transparentPrimaryDarkerColor;
+    }
+    &:hover{
+        background: $primaryDarkerColorAlternative;
+    }
+
+    &:active{
+        margin-top: 1px;
+        outline: #000;
+    }
+}
