@@ -108,6 +108,7 @@
                 width: 100%;
                 & p {
                     font-size: 12pt;
+                    overflow-wrap: anywhere;
                 }
                 & span {
                     display: block;
