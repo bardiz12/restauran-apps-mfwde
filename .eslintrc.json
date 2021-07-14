@@ -13,6 +13,6 @@
     },
     "rules": {
         "indent": ["error", 4],
-        "allowEmptyCatch" : true
+        "no-empty": ["error", { "allowEmptyCatch": true }]
     }
 }

@@ -6,10 +6,10 @@ const DrawerInitiator = {
         this.content = content;
         button.addEventListener('click', (event) => this.toggleDrawer(event));
         this.drawer.addEventListener('click', (event) => {
-            if (event.target.nodeName === "A") {
-                this.hideDrawer()
+            if (event.target.nodeName === 'A') {
+                this.hideDrawer();
             }
-        })
+        });
     },
 
     toggleDrawer() {
@@ -24,7 +24,7 @@ const DrawerInitiator = {
         toggler.classList.remove('active');
         this.drawer.classList.remove('mobile-nav-active');
         this.content.classList.remove('disable-scroll');
-    }
+    },
 };
 
 export default DrawerInitiator;

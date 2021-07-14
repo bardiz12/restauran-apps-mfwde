@@ -2,9 +2,19 @@ import RestaurantFavouriteModel from '../repository/database/RestaurantFavourite
 
 class FavRestoButton extends HTMLElement {
     connectedCallback() {
-        this.isSaved = JSON.parse(this.getAttribute('is-saved') || false);
         this.isTransparent = JSON.parse(this.getAttribute('is-transparent') || false);
         this.resto = JSON.parse(this.getAttribute('resto') || null);
+        this.isSaved = false;
+
+        RestaurantFavouriteModel
+            .checkIsSaved(this.resto.id)
+            .then((isSaved) => {
+                this.isSaved = isSaved[this.resto.id] || false;
+            });
+
+        // const checkIfSaved = (await (RestaurantFavouriteModel.checkIsSaved(this.resto.id)));
+
+        // this.isSaved = checkIfSaved[this.resto.id] || false;
         this.render();
         this.initListener();
     }

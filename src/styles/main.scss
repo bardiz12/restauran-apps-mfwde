@@ -235,16 +235,29 @@ $transparentDarkerPrimaryDarkerColor : #206a5dd3;
     }
 }
 
-@keyframes hero-background {
+@keyframes hero-background-large {
 
     33%,
     66% {
-        background-image: url('../public/images/heros/hero-image_1.jpg');
+        background-image: url('../public/images/heros/hero-image_1-large.jpg');
     }
 
     66%,
     100% {
-        background-image: url('../public/images/heros/hero-image_4.jpg');
+        background-image: url('../public/images/heros/hero-image_4-large.jpg');
+    }
+}
+
+@keyframes hero-background-small {
+
+    33%,
+    66% {
+        background-image: url('../public/images/heros/hero-image_1-small.jpg');
+    }
+
+    66%,
+    100% {
+        background-image: url('../public/images/heros/hero-image_4-small.jpg');
     }
 }
 
@@ -259,8 +272,15 @@ $transparentDarkerPrimaryDarkerColor : #206a5dd3;
     background-repeat: no-repeat;
 
     &.with-default-bg {
-        background-image: url('../public/images/heros/hero-image_1.jpg');
-        animation: hero-background 60s infinite step-start;
+        @include mobile{
+            background-image: url('../public/images/heros/hero-image_2-small.jpg');
+            animation: hero-background-small 60s infinite step-start;
+        }
+        @include tablet{
+            background-image: url('../public/images/heros/hero-image_2-large.jpg');
+            animation: hero-background-large 60s infinite step-start;
+        }
+        
     }
 
     &-overlay {

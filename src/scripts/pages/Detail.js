@@ -1,7 +1,7 @@
 import UrlParser from '../routes/url-parser';
 
 import RestaurantData from '../repository/RestaurantData';
-
+import RestaurantApi from '../repository/RestaurantApi';
 import MenuPhotosRepository from '../repository/MenuPhotosRepository';
 import RestaurantFavouriteModel from '../repository/database/RestaurantFavouriteModel';
 
@@ -56,13 +56,21 @@ const Detail = {
             id, name, address, city, categories, rating, imagesUrl,
         } = this.data.restaurant;
         const element = this.container.firstElementChild;
-        element.style.backgroundImage = `url("${imagesUrl.large}")`;
+        const isDesktop = window.matchMedia('(min-width: 992px)');// for desktop devices
+
+        element.style.backgroundImage = isDesktop
+            ? `url("${imagesUrl.large}")`
+            : `url("${imagesUrl.small}")`;
+
         const isSaved = (await RestaurantFavouriteModel.checkIsSaved(id))[id] || false;
         const content = element.querySelector('.hero-content');
         content.innerHTML = `
                 <div class="resto-caption">
                     <div class="image-container">
-                        <img src="${imagesUrl.medium}" tabindex="0">
+                        <picture>
+                            <source media="(max-width: 600px)" srcset="${imagesUrl.small}">
+                            <img loading="lazy" src="${imagesUrl.large}" tabindex="0">
+                        </picture>
                     </div>
                     <div class="desktop:pl-1 text-container">
                         <div>
@@ -79,9 +87,9 @@ const Detail = {
                             </span>
                         </div>
                         <div class="">
-                        ${categories.map(({ name }) => `
+                        ${categories.map(({ name: categoryName }) => `
                                 <span class="p-1 bg-primary outline-white text-white mr-1 rounded">
-                                #${name}
+                                #${categoryName}
                                 </span>
                             `).join('')}
                         </div>
@@ -115,7 +123,10 @@ const Detail = {
                 <div class="menu-container">
                     ${restaurant.menus.foods.map(({ name }, index) => `
                         <div class="menu-item" tabindex="0" aria-label="Menu makanan nomor ${index + 1}">
-                            <img src="${MenuPhotosRepository.getPhotoUrl(name)}" alt="${name}" tabindex="0">
+                            <picture>
+                                <source media="(max-width: 600px)" srcset="${MenuPhotosRepository.getPhotoUrl(name, 'foods', 'small')}">
+                                <img loading="lazy" src="${MenuPhotosRepository.getPhotoUrl(name, 'foods', 'large')}" alt="${name}" tabindex="0">
+                            </picture>
                             <span tabindex="0">${name}</span>
                         </div>
                         `).join('')}
@@ -133,8 +144,11 @@ const Detail = {
                 <div class="menu-container">
                     ${restaurant.menus.drinks.map(({ name }, index) => `
                         <div class="menu-item" tabindex="0" aria-label="Menu minuman nomor ${index + 1}">
-                            <img alt="${name}" tabindex="0" src="${MenuPhotosRepository.getPhotoUrl(name, 'drinks')}">
-                            <span>${name}</span>
+                            <picture>
+                                    <source media="(max-width: 600px)" srcset="${MenuPhotosRepository.getPhotoUrl(name, 'drinks', 'small')}">
+                                <img loading="lazy" alt="${name}" tabindex="0" src="${MenuPhotosRepository.getPhotoUrl(name, 'drinks', 'large')}">
+                                <span>${name}</span>
+                            </picture>
                         </div>
                         `).join('')}
                 </div>
@@ -152,26 +166,24 @@ const Detail = {
         element.innerHTML = `
         <div class="list-review">
             
-                ${customerReviews.length === 0
+        ${customerReviews.length === 0
         ? '<div>Belum Memiliki review</div>'
         : customerReviews.filter((item) => item.review !== '' && item.name !== '').map(({ name, review, date }) => `
-        <div class="review-item mb-1">
-                <div class="icon">
-                <i class="fa fa-user"></i>
-                </div>
-                        <div class="text-review">
-                            <p>
-                            ${review}
-                            </p>
-        
-                            <span>
-                            ditulis oleh <strong class="text-black">${name}</strong> pada ${date}
-                            </span>
+                        <div class="review-item mb-1">
+                                <div class="icon">
+                                <i class="fa fa-user"></i>
+                                </div>
+                                <div class="text-review">
+                                    <p>
+                                    ${review}
+                                    </p>
+                
+                                    <span>
+                                    ditulis oleh <strong class="text-black">${name}</strong> pada ${date}
+                                    </span>
+                                </div>
                         </div>
-                        </div>
-                        `).join('')
-
-}
+                        `).join('')}
             
         </div>
         <div class="form-review-container">
@@ -184,13 +196,13 @@ const Detail = {
                     <label for="#name">
                         Nama
                     </label>
-                    <input type="text" name="name" id="name" placeholder="Masukan nama anda">
+                    <input type="text" name="name" id="review_name" placeholder="Masukan nama anda">
                 </div>
                 <div class="input-container">
                     <label for="#review">
                         Ulasan
                     </label>
-                    <textarea type="text" name="review" id="review" placeholder="Masukan nama anda" rows="7"></textarea>
+                    <textarea type="text" name="review" id="review_review" placeholder="Masukan nama anda" rows="7"></textarea>
                 </div>
                 <div class="input-container flex justify-end">
                     <button type="submit" class="btn btn-primary rounded">Kirim</button>
@@ -201,10 +213,21 @@ const Detail = {
     },
 
     initListener() {
-        this.container.querySelector('form').addEventListener('submit', (e) => {
+        this.container.querySelector('form').addEventListener('submit', async (e) => {
             e.preventDefault();
-            // const payload = Object.fromEntries(new FormData(this));
-            alert('Fitur ini belum tersedia');
+            const name = this.container.querySelector('form #review_name').value;
+            const review = this.container.querySelector('form #review_review').value;
+            if (name !== undefined && review !== undefined && name !== '' && review !== '') {
+                const response = await (await RestaurantApi.postReview({
+                    id: this.restoId,
+                    name,
+                    review,
+                })).json();
+                if (response.error === false) {
+                    this.data.restaurant.customerReviews = response.customerReviews;
+                    this.renderReview();
+                }
+            }
         });
     },
 };

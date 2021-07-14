@@ -13,6 +13,7 @@ const CONFIG = {
             large: `${this.BASE_IMAGE_URL.large}${pictureId}`,
         };
     },
+    API_TOKEN: '12345',
 };
 
 export default CONFIG;

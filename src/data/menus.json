@@ -1,1 +1,22 @@
-{"kari kacang dan telur":"./images/menus/kari-kacang dan telur.jpg","sup kohlrabi":"./images/menus/sup-kohlrabi.jpg","ikan teri dan roti":"./images/menus/ikan-teri dan roti.jpg","jus alpukat":"./images/menus/jus-alpukat.jpg","paket rosemary":"./images/menus/paket-rosemary.jpg","toastie salmon":"./images/menus/toastie-salmon.jpeg","teh manis":"./images/menus/teh-manis.png","kopi espresso":"./images/menus/kopi-espresso.jpg","minuman soda":"./images/menus/minuman-soda.jpg","jus tomat":"./images/menus/jus-tomat.jpg","es kopi":"./images/menus/es-kopi.jpg","es krim":"./images/menus/es-krim.jpg","jus apel":"./images/menus/jus-apel.jpg","jus mangga":"./images/menus/jus-mangga.jpg","coklat panas":"./images/menus/coklat-panas.jpg","sirup":"./images/menus/sirup.jpg","jus jeruk":"./images/menus/jus-jeruk.jpg","air":"./images/menus/air.jpg","bebek crepes":"./images/menus/bebek-crepes.jpeg","salad lengkeng":"./images/menus/salad-lengkeng.jpeg"}
+{
+    "kari kacang dan telur": "./images/menus/kari-kacang dan telur.jpg",
+    "sup kohlrabi": "./images/menus/sup-kohlrabi.jpg",
+    "ikan teri dan roti": "./images/menus/ikan-teri dan roti.jpg",
+    "jus alpukat": "./images/menus/jus-alpukat.jpg",
+    "paket rosemary": "./images/menus/paket-rosemary.jpg",
+    "toastie salmon": "./images/menus/toastie-salmon.jpeg",
+    "teh manis": "./images/menus/teh-manis.jpeg",
+    "kopi espresso": "./images/menus/kopi-espresso.jpg",
+    "minuman soda": "./images/menus/minuman-soda.jpg",
+    "jus tomat": "./images/menus/jus-tomat.jpg",
+    "es kopi": "./images/menus/es-kopi.jpg",
+    "es krim": "./images/menus/es-krim.jpg",
+    "jus apel": "./images/menus/jus-apel.jpg",
+    "jus mangga": "./images/menus/jus-mangga.jpg",
+    "coklat panas": "./images/menus/coklat-panas.jpg",
+    "sirup": "./images/menus/sirup.jpg",
+    "jus jeruk": "./images/menus/jus-jeruk.jpg",
+    "air": "./images/menus/air.jpg",
+    "bebek crepes": "./images/menus/bebek-crepes.jpeg",
+    "salad lengkeng": "./images/menus/salad-lengkeng.jpeg"
+}

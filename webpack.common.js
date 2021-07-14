@@ -4,6 +4,14 @@ const path = require('path');
 const HtmlWebpackInlineSVGPlugin = require('html-webpack-inline-svg-plugin');
 const WorkboxPlugin = require('workbox-webpack-plugin');
 
+const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
+const { default: ImageminWebpackPlugin } = require('imagemin-webpack-plugin');
+const imageminMozjpeg = require('imagemin-mozjpeg');
+
+// const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+
+const sharp = require('./sharp');
+
 module.exports = {
     entry: path.resolve(__dirname, 'src/scripts/index.js'),
     resolve: {
@@ -52,6 +60,7 @@ module.exports = {
         ],
     },
     plugins: [
+        // new CleanWebpackPlugin(),
         new HtmlWebpackPlugin({
             template: path.resolve(__dirname, 'src/templates/index.html'),
             filename: 'index.html',
@@ -112,5 +121,21 @@ module.exports = {
                 },
             ],
         }),
+        new ImageminWebpackPlugin({
+            plugins: [
+                imageminMozjpeg({
+                    quality: 50,
+                    progressive: true,
+                }),
+            ],
+        }),
+        {
+            apply: (compiler) => {
+                compiler.hooks.done.tap('Sharp all images', () => {
+                    sharp.generateMenusImage();
+                });
+            },
+        },
+        new BundleAnalyzerPlugin(),
     ],
 };

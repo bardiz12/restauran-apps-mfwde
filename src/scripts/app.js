@@ -39,7 +39,7 @@ class App {
             await page.afterRender();
             window.scrollTo(0, 0);
         } catch (e) {}
-        
+
         Utility.hideLoadingOverLay();
     }
 

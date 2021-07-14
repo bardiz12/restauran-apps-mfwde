@@ -2,11 +2,6 @@ import RestaurantApi from './RestaurantApi';
 
 import CONFIG from '../globals/config';
 
-// const handleHTTPError = (code, message) => {
-//     // if(code === )
-
-// };
-
 const fetchProxy = async (fetchPromise) => {
     let response = null;
     try {
